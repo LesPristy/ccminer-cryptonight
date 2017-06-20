@@ -3,6 +3,11 @@ ccminer-cryptonight
 A modification of Christian Buchner's &amp; Christian H.'s
 ccminer project by tsiv for Cryptonight mining.
 
+June 20th 2017
+--------------
+
+Changed algorithm to CryptoNight-Light (AEON).
+
 March 31st 2016
 ---------------
 
