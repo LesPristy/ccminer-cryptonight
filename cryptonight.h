@@ -9,8 +9,15 @@
 # error "Unknown compiler, need MY_ALIGN definition"
 #endif
 
-#define MEMORY         (1 << 21) // 2 MiB / 2097152 B
-#define ITER           (1 << 20) // 1048576
+#define LITE 1
+#if LITE /* cryptonight-light */
+#define MEMORY (1 << 20)
+#define ITER   (1 << 19)
+#else
+#define MEMORY (1 << 21) /* 2 MiB */
+#define ITER   (1 << 20)
+#endif
+
 #define AES_BLOCK_SIZE  16
 #define AES_KEY_SIZE    32
 #define INIT_SIZE_BLK   8
@@ -111,7 +118,11 @@
     ((uint64_t *)dst)[0] = hi; \
     ((uint64_t *)dst)[1] = lo; }
 
+#if !LITE
 #define E2I(x) ((size_t)(((*((uint64_t*)(x)) >> 4) & 0x1ffff)))
+#else
+#define E2I(x) ((size_t)(((*((uint64_t*)(x)) >> 4) & 0xffff)))
+#endif
 
 union hash_state {
   uint8_t b[200];
